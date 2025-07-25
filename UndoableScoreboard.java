@@ -17,7 +17,7 @@ public class UndoableScoreboard extends Scoreboard {
         history.push(entry);
         super.add(entry);
     }
-
+    
     public GameEntry undo() {
         if (history.isEmpty()) {
             throw new EmptyStackException();
