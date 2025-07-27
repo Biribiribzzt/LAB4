@@ -22,6 +22,21 @@ public class Scoreboard implements MyScoreboard {
     }
 
     @Override
+    public void remove(int index) {
+        if (index < 0 || index >= numberOfEntries) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + numberOfEntries);
+        }
+        MyStack<GameEntry> tempStack = new ArrayStack<>();
+        for (int i = 0; i < index; i++) {
+            tempStack.push(entries.pop());
+        }
+        entries.pop();
+        while (!tempStack.isEmpty()) {
+            entries.push(tempStack.pop());
+        }
+    }
+
+    @Override
     public void add(GameEntry entry) {
         entries.push(entry);
         numberOfEntries++;
@@ -49,5 +64,26 @@ public class Scoreboard implements MyScoreboard {
             System.out.println(entries.peek(i));
         }
     }
+    @Override
+    public String toString() {
+        if (isEmpty()) {
+            return "[]";    
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < numberOfEntries; i++) {
+            if (entries.peek(i) == null){
+                continue;
+            }else{
+                sb.append(entries.peek(i).toString());
+            }
+            if (i < numberOfEntries - 1) {
+                sb.append(", ");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
+    }
 }
+
     

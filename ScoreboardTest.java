@@ -1,29 +1,25 @@
-
 public class ScoreboardTest {
     public static void main(String[] args) {
-        UndoableScoreboard scoreboard = new UndoableScoreboard(5);
-        
-        // Test adding entries
-        scoreboard.add(new GameEntry("Alice", 100));
-        scoreboard.add(new GameEntry("Bob", 200));
-        scoreboard.add(new GameEntry("Charlie", 150));
-        System.out.println("Added entries:");
-        scoreboard.printEntries();
-        scoreboard.undo();
-        System.out.println("After undo:");
-        scoreboard.printEntries();
-        
-        // Test size and isEmpty
-        System.out.println("Size: " + scoreboard.size()); // Expected: 3
-        System.out.println("Is Empty: " + scoreboard.isEmpty()); // Expected: false
-        
-        // Test getting entries
-        System.out.println("Entry at index 0: " + scoreboard.get(0)); // Expected: Alice's entry
-        System.out.println("Entry at index 1: " + scoreboard.get(1)); // Expected: Bob's entry
-        
-        // Test clearing the scoreboard
-        scoreboard.clear();
-        System.out.println("Size after clear: " + scoreboard.size()); // Expected: 0
-    }
-}  
+        UndoableScoreboard usb = new UndoableScoreboard(5);
 
+        usb.add(new GameEntry("Alice", 100));
+        usb.add(new GameEntry("Bob", 200));
+        System.out.println("Scoreboard after adds: " + usb);
+        // Expected: [Bob(200), Alice(100)]
+
+        // Now, undo the last action (adding Bob)
+        usb.undo();
+        System.out.println("Scoreboard after undo: " + usb);
+        // Expected: [Alice(100)]
+
+        // Remove Alice
+        usb.remove(0);
+        System.out.println("Scoreboard after remove: " + usb);
+        // Expected: []
+
+        // This undo is more complex and not required by the lab,
+        // but shows the limitation. A full command pattern would be needed.
+        usb.undo(); 
+        System.out.println("Scoreboard after second undo: " + usb);
+    }
+}

@@ -48,11 +48,12 @@ public class ArrayStack<E> implements MyStack<E> {
         }
         return stack[top];
     }
-    public E peek(int index) {
-        if (index < 0 || index > top) {
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
+    @Override
+    public E peek(int index){
+        if (index < 0 || index >= size()) {
+            return null;
         }
-        return stack[top - index];
+        return stack[index];
     }
 
     @Override
